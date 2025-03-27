@@ -80,3 +80,20 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* Styles pour les graphiques en mode sombre */
+.dark .recharts-cartesian-axis-tick-value,
+.dark .recharts-legend-item-text,
+.dark .recharts-text {
+  fill: #f8fafc !important;
+}
+
+.dark .recharts-cartesian-grid-horizontal line,
+.dark .recharts-cartesian-grid-vertical line {
+  stroke: #1e293b !important;
+  stroke-opacity: 0.3 !important;
+}
+
+.dark .recharts-reference-line line {
+  stroke: #3b82f6 !important;
+}

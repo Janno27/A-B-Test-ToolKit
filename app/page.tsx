@@ -98,13 +98,13 @@ export default function Home() {
       const apiUrl = process.env.NEXT_PUBLIC_API_URL || "https://a-b-test-toolkit.onrender.com";
       
       const requestBody = {
-        visits: Number(visits),
-        conversions: Number(conversions),
-        traffic: traffic[0],
-        variations: Number(variations),
-        improvement: improvement === "custom" ? Number(customImprovement) : Number(improvement),
-        confidence: Number(confidence),
-        method,
+          visits: Number(visits),
+          conversions: Number(conversions),
+          traffic: traffic[0],
+          variations: Number(variations),
+          improvement: improvement === "custom" ? Number(customImprovement) : Number(improvement),
+          confidence: Number(confidence),
+          method,
       };
       
       // 1. Calcul principal
@@ -493,11 +493,14 @@ export default function Home() {
                                       style={{ fontSize: '8px' }}
                                     />
                                     <Legend 
-                                      verticalAlign="bottom" 
-                                      height={20} 
-                                      iconSize={6}
-                                      iconType="circle"
-                                      wrapperStyle={{ fontSize: '9px' }}
+                                      payload={[
+                                        { value: 'Statistical Confidence', type: 'line', color: '#4f46e5' },
+                                        { value: 'Confidence Interval', type: 'line', color: '#ef4444' },
+                                        { value: 'Target Confidence', type: 'line', color: '#10b981' }
+                                      ]} 
+                                      formatter={(value) => <span className="text-xs text-foreground">{value}</span>}
+                                      wrapperStyle={{ paddingTop: 10 }}
+                                      iconSize={8}
                                     />
                                   </PieChart>
                                 </ResponsiveContainer>
@@ -535,7 +538,7 @@ export default function Home() {
                                     data={data}
                                     margin={{ top: 20, right: 20, left: 20, bottom: 20 }}
                                   >
-                                    <CartesianGrid strokeDasharray="3 3" opacity={0.2} />
+                                    <CartesianGrid strokeDasharray="3 3" strokeOpacity={0.7} stroke="var(--border)" />
                                     <XAxis 
                                       dataKey="name" 
                                       axisLine={false} 
@@ -603,7 +606,7 @@ export default function Home() {
                                   data={data}
                                   margin={{ top: 20, right: 30, left: 20, bottom: 20 }}
                                 >
-                                  <CartesianGrid strokeDasharray="3 3" opacity={0.1} />
+                                  <CartesianGrid strokeDasharray="3 3" stroke="#334155" strokeOpacity={0.3} />
                                   <XAxis 
                                     dataKey={showBySample ? "sampleSize" : "day"}
                                     tickFormatter={(value) => {
@@ -615,16 +618,16 @@ export default function Home() {
                                         return `D${value}`;
                                       }
                                     }}
-                                    axisLine={{ stroke: 'var(--border)', strokeWidth: 1 }}
-                                    tick={{ fontSize: 10, fill: 'var(--foreground)' }}
+                                    axisLine={{ stroke: '#64748b', strokeWidth: 1 }}
+                                    tick={{ fontSize: 10, fill: '#64748b' }}
                                     tickLine={false}
                                   />
                                   <YAxis 
                                     yAxisId="left"
                                     domain={[0, 100]} 
-                                    axisLine={{ stroke: 'var(--border)', strokeWidth: 1 }}
+                                    axisLine={{ stroke: '#64748b', strokeWidth: 1 }}
                                     tickLine={false}
-                                    tick={{ fontSize: 10, fill: 'var(--foreground)' }}
+                                    tick={{ fontSize: 10, fill: '#64748b' }}
                                     width={36}
                                     tickFormatter={(value) => `${value}%`}
                                     label={{ 
@@ -634,8 +637,9 @@ export default function Home() {
                                       offset: -20,
                                       style: { 
                                         textAnchor: 'middle',
-                                        fill: 'var(--foreground)',
-                                        fontSize: 10
+                                        fill: '#64748b',
+                                        fontSize: 10,
+                                        fontWeight: 'bold'
                                       }
                                     }}
                                   />
@@ -643,9 +647,9 @@ export default function Home() {
                                     yAxisId="right"
                                     orientation="right"
                                     domain={[0, 'auto']}
-                                    axisLine={{ stroke: 'var(--border)', strokeWidth: 1 }}
+                                    axisLine={{ stroke: '#64748b', strokeWidth: 1 }}
                                     tickLine={false}
-                                    tick={{ fontSize: 10, fill: 'var(--foreground)' }}
+                                    tick={{ fontSize: 10, fill: '#64748b' }}
                                     width={36}
                                     tickFormatter={(value) => `${(value * 100).toFixed(0)}%`}
                                     label={{ 
@@ -655,8 +659,9 @@ export default function Home() {
                                       offset: -10,
                                       style: { 
                                         textAnchor: 'middle',
-                                        fill: 'var(--foreground)',
-                                        fontSize: 10
+                                        fill: '#64748b',
+                                        fontSize: 10,
+                                        fontWeight: 'bold'
                                       }
                                     }}
                                   />
@@ -733,9 +738,9 @@ export default function Home() {
                                         const reached99 = payload[0]?.value && Number(payload[0].value) >= 99;
                                         
                                         return (
-                                          <div className="bg-popover/95 backdrop-blur-sm border rounded-md shadow-md p-2 dark:border-gray-700 dark:bg-gray-900/95">
+                                          <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-md shadow-md p-2">
                                             <div className="space-y-1">
-                                              <p className="text-sm font-medium leading-none dark:text-gray-200">
+                                              <p className="text-sm font-medium leading-none text-gray-800 dark:text-gray-100">
                                                 {showBySample 
                                                   ? `Sample size: ${label.toLocaleString()}`
                                                   : `Day ${label}`
@@ -747,7 +752,7 @@ export default function Home() {
                                                     className="w-2 h-2 rounded-full mr-1" 
                                                     style={{ backgroundColor: entry.color }}
                                                   />
-                                                  <span className="text-xs text-muted-foreground dark:text-gray-300">
+                                                  <span className="text-xs text-gray-600 dark:text-gray-300">
                                                     {entry.name === "Statistical Confidence" 
                                                       ? `Confidence: ${Number(entry.value || 0).toFixed(2)}%`
                                                       : entry.name === "Confidence Interval" 

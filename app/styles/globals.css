@@ -1,0 +1,46 @@
+/* Styles globaux pour A/B Test Toolkit */
+
+/* Variables pour le mode clair */
+:root {
+  --primary: #3b82f6;
+  --primary-foreground: #ffffff;
+  --background: #ffffff;
+  --foreground: #0f172a;
+  --muted-foreground: #64748b;
+  --border: #e2e8f0;
+  --accent: #f1f5f9;
+  --tooltip-background: rgba(255, 255, 255, 0.95);
+  --tooltip-foreground: #334155;
+  --tooltip-border: #e2e8f0;
+}
+
+/* Variables pour le mode sombre */
+.dark {
+  --primary: #3b82f6;
+  --primary-foreground: #ffffff;
+  --background: #0f172a;
+  --foreground: #f8fafc;
+  --muted-foreground: #94a3b8;
+  --border: #1e293b;
+  --accent: #1e293b;
+  --tooltip-background: rgba(15, 23, 42, 0.95);
+  --tooltip-foreground: #e2e8f0;
+  --tooltip-border: #334155;
+}
+
+/* Styles pour les graphiques en mode sombre */
+.dark .recharts-cartesian-axis-tick-value,
+.dark .recharts-legend-item-text,
+.dark .recharts-text {
+  fill: var(--foreground) !important;
+}
+
+.dark .recharts-cartesian-grid-horizontal line,
+.dark .recharts-cartesian-grid-vertical line {
+  stroke: var(--border) !important;
+  stroke-opacity: 0.3 !important;
+}
+
+.dark .recharts-reference-line line {
+  stroke: var(--primary) !important;
+} 
