@@ -1,0 +1,25 @@
+services:
+  # Service backend FastAPI
+  - type: web
+    name: abtest-api
+    env: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.9.12
+    
+  # Service frontend Next.js (à configurer séparément)
+  - type: web
+    name: abtest-frontend
+    env: node
+    buildCommand: npm install && npm run build
+    startCommand: npm start
+    envVars:
+      - key: NODE_VERSION
+        value: 18.17.0
+      - key: NEXT_PUBLIC_API_URL
+        fromService:
+          name: abtest-api
+          type: web
+          property: url 
