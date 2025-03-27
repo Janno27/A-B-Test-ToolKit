@@ -94,17 +94,17 @@ export default function Home() {
   const calculateDays = async () => {
     setIsCalculating(true);
     try {
-      // URL du backend FastAPI (à modifier selon votre environnement)
-      const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
+      // URL du backend FastAPI sur Render
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || "https://a-b-test-toolkit.onrender.com";
       
       const requestBody = {
-          visits: Number(visits),
-          conversions: Number(conversions),
-          traffic: traffic[0],
-          variations: Number(variations),
-          improvement: improvement === "custom" ? Number(customImprovement) : Number(improvement),
-          confidence: Number(confidence),
-          method,
+        visits: Number(visits),
+        conversions: Number(conversions),
+        traffic: traffic[0],
+        variations: Number(variations),
+        improvement: improvement === "custom" ? Number(customImprovement) : Number(improvement),
+        confidence: Number(confidence),
+        method,
       };
       
       // 1. Calcul principal
