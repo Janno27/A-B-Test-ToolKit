@@ -31,6 +31,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { InfoCircledIcon } from "@radix-ui/react-icons";
 import { Switch } from "@/components/ui/switch";
+import { ResultsAnalysis } from "./components/results-analysis";
 
 export default function Home() {
   const [visits, setVisits] = useState("");
@@ -820,10 +821,7 @@ export default function Home() {
         </div>
           </TabsContent>
           <TabsContent value="analysis">
-            <div className="rounded-xl p-8 bg-muted/30 text-center">
-              <h3 className="text-xl font-medium mb-2">Results Analysis</h3>
-              <p className="text-muted-foreground">This tool will be available soon. It will allow you to analyze the results of your A/B tests.</p>
-      </div>
+            <ResultsAnalysis />
           </TabsContent>
         </Tabs>
 
