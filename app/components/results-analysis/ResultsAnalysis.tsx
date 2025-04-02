@@ -29,6 +29,7 @@ import AnalysisResults from "./AnalysisResults";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import ConfidenceTooltip from "./ConfidenceTooltip";
 import ImpactTooltip from "./ImpactTooltip";
+import RevenueDashboard from "./RevenueDashboard";
 
 export default function ResultsAnalysis() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
@@ -662,7 +663,7 @@ export default function ResultsAnalysis() {
                           <TabsList className="grid w-[400px] grid-cols-2">
                             <TabsTrigger value="summary">Summary</TabsTrigger>
                             <TabsTrigger value="revenue">Revenue</TabsTrigger>
-                        </TabsList>
+                          </TabsList>
                         </div>
                         
                         <TabsContent value="summary">
@@ -1271,6 +1272,13 @@ export default function ResultsAnalysis() {
                           </div>
                         </div>
                             </div>
+                          </TabsContent>
+                        
+                          <TabsContent value="revenue">
+                            <RevenueDashboard 
+                              analysisResults={analysisResults}
+                              usersPerVariation={usersPerVariation}
+                            />
                           </TabsContent>
                       </Tabs>
                 </div>

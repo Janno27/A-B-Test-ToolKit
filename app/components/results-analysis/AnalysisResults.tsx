@@ -320,15 +320,15 @@ export default function AnalysisResults({ kpiName, isLoading = false, fileId, an
                   <TableBody>
                     <TableRow>
                       <TableCell className="font-medium">Control</TableCell>
-                      <TableCell>{(results.conversion_metrics?.control_value * 100).toFixed(2)}%</TableCell>
+                      <TableCell>{((results.conversion_metrics?.control_value ?? 0) * 100).toFixed(2)}%</TableCell>
                     </TableRow>
                     <TableRow>
                       <TableCell className="font-medium">Variation</TableCell>
-                      <TableCell>{(results.conversion_metrics?.variation_value * 100).toFixed(2)}%</TableCell>
+                      <TableCell>{((results.conversion_metrics?.variation_value ?? 0) * 100).toFixed(2)}%</TableCell>
                     </TableRow>
                     <TableRow>
                       <TableCell className="font-medium">Uplift</TableCell>
-                      <TableCell className={results.conversion_metrics?.uplift >= 0 ? "text-green-600" : "text-red-600"}>
+                      <TableCell className={(results.conversion_metrics?.uplift ?? 0) >= 0 ? "text-green-600" : "text-red-600"}>
                         {formatPercentage(results.conversion_metrics?.uplift)}
                       </TableCell>
                     </TableRow>
@@ -346,25 +346,25 @@ export default function AnalysisResults({ kpiName, isLoading = false, fileId, an
                   <TableBody>
                     <TableRow>
                       <TableCell className="font-medium">Test Method</TableCell>
-                      <TableCell>{results.conversion_metrics?.test_result.test_name}</TableCell>
+                      <TableCell>{results.conversion_metrics?.test_result?.test_name || 'N/A'}</TableCell>
                     </TableRow>
                     <TableRow>
                       <TableCell className="font-medium">p-value</TableCell>
-                      <TableCell>{results.conversion_metrics?.test_result.p_value.toFixed(3)}</TableCell>
+                      <TableCell>{results.conversion_metrics?.test_result?.p_value?.toFixed(3) || 'N/A'}</TableCell>
                     </TableRow>
                     <TableRow>
                       <TableCell className="font-medium">Confidence</TableCell>
-                      <TableCell>{results.conversion_metrics?.test_result.confidence.toFixed(1)}%</TableCell>
+                      <TableCell>{results.conversion_metrics?.test_result?.confidence?.toFixed(1) || 'N/A'}%</TableCell>
                     </TableRow>
                     <TableRow>
                       <TableCell className="font-medium">Significance</TableCell>
-                      <TableCell className={results.conversion_metrics?.test_result.significant ? "text-green-600" : "text-amber-600"}>
-                        {results.conversion_metrics?.test_result.significant ? "Significant" : "Not significant"}
+                      <TableCell className={(results.conversion_metrics?.test_result?.significant ?? false) ? "text-green-600" : "text-amber-600"}>
+                        {(results.conversion_metrics?.test_result?.significant ?? false) ? "Significant" : "Not significant"}
                       </TableCell>
                     </TableRow>
                     <TableRow>
                       <TableCell className="font-medium">Power</TableCell>
-                      <TableCell>{results.conversion_metrics?.test_result.power.toFixed(2)}</TableCell>
+                      <TableCell>{results.conversion_metrics?.test_result?.power?.toFixed(2) || 'N/A'}</TableCell>
                     </TableRow>
                   </TableBody>
                 </Table>
@@ -397,7 +397,7 @@ export default function AnalysisResults({ kpiName, isLoading = false, fileId, an
                     </TableRow>
                     <TableRow>
                       <TableCell className="font-medium">Uplift</TableCell>
-                      <TableCell className={results.aov_metrics?.uplift >= 0 ? "text-green-600" : "text-red-600"}>
+                      <TableCell className={(results.aov_metrics?.uplift ?? 0) >= 0 ? "text-green-600" : "text-red-600"}>
                         {formatPercentage(results.aov_metrics?.uplift)}
                       </TableCell>
                     </TableRow>
@@ -415,25 +415,25 @@ export default function AnalysisResults({ kpiName, isLoading = false, fileId, an
                   <TableBody>
                     <TableRow>
                       <TableCell className="font-medium">Test Method</TableCell>
-                      <TableCell>{results.aov_metrics?.test_result.test_name}</TableCell>
+                      <TableCell>{results.aov_metrics?.test_result?.test_name || 'N/A'}</TableCell>
                     </TableRow>
                     <TableRow>
                       <TableCell className="font-medium">p-value</TableCell>
-                      <TableCell>{results.aov_metrics?.test_result.p_value.toFixed(3)}</TableCell>
+                      <TableCell>{results.aov_metrics?.test_result?.p_value?.toFixed(3) || 'N/A'}</TableCell>
                     </TableRow>
                     <TableRow>
                       <TableCell className="font-medium">Confidence</TableCell>
-                      <TableCell>{results.aov_metrics?.test_result.confidence.toFixed(1)}%</TableCell>
+                      <TableCell>{results.aov_metrics?.test_result?.confidence?.toFixed(1) || 'N/A'}%</TableCell>
                     </TableRow>
                     <TableRow>
                       <TableCell className="font-medium">Significance</TableCell>
-                      <TableCell className={results.aov_metrics?.test_result.significant ? "text-green-600" : "text-amber-600"}>
-                        {results.aov_metrics?.test_result.significant ? "Significant" : "Not significant"}
+                      <TableCell className={(results.aov_metrics?.test_result?.significant ?? false) ? "text-green-600" : "text-amber-600"}>
+                        {(results.aov_metrics?.test_result?.significant ?? false) ? "Significant" : "Not significant"}
                       </TableCell>
                     </TableRow>
                     <TableRow>
                       <TableCell className="font-medium">Power</TableCell>
-                      <TableCell>{results.aov_metrics?.test_result.power.toFixed(2)}</TableCell>
+                      <TableCell>{results.aov_metrics?.test_result?.power?.toFixed(2) || 'N/A'}</TableCell>
                     </TableRow>
                   </TableBody>
                 </Table>
@@ -466,7 +466,7 @@ export default function AnalysisResults({ kpiName, isLoading = false, fileId, an
                     </TableRow>
                     <TableRow>
                       <TableCell className="font-medium">Uplift</TableCell>
-                      <TableCell className={results.revenue_metrics?.uplift >= 0 ? "text-green-600" : "text-red-600"}>
+                      <TableCell className={(results.revenue_metrics?.uplift ?? 0) >= 0 ? "text-green-600" : "text-red-600"}>
                         {formatPercentage(results.revenue_metrics?.uplift)}
                       </TableCell>
                     </TableRow>
@@ -484,25 +484,25 @@ export default function AnalysisResults({ kpiName, isLoading = false, fileId, an
                   <TableBody>
                     <TableRow>
                       <TableCell className="font-medium">Test Method</TableCell>
-                      <TableCell>{results.revenue_metrics?.test_result.test_name}</TableCell>
+                      <TableCell>{results.revenue_metrics?.test_result?.test_name || 'N/A'}</TableCell>
                     </TableRow>
                     <TableRow>
                       <TableCell className="font-medium">p-value</TableCell>
-                      <TableCell>{results.revenue_metrics?.test_result.p_value.toFixed(3)}</TableCell>
+                      <TableCell>{results.revenue_metrics?.test_result?.p_value?.toFixed(3) || 'N/A'}</TableCell>
                     </TableRow>
                     <TableRow>
                       <TableCell className="font-medium">Confidence</TableCell>
-                      <TableCell>{results.revenue_metrics?.test_result.confidence.toFixed(1)}%</TableCell>
+                      <TableCell>{results.revenue_metrics?.test_result?.confidence?.toFixed(1) || 'N/A'}%</TableCell>
                     </TableRow>
                     <TableRow>
                       <TableCell className="font-medium">Significance</TableCell>
-                      <TableCell className={results.revenue_metrics?.test_result.significant ? "text-green-600" : "text-amber-600"}>
-                        {results.revenue_metrics?.test_result.significant ? "Significant" : "Not significant"}
+                      <TableCell className={(results.revenue_metrics?.test_result?.significant ?? false) ? "text-green-600" : "text-amber-600"}>
+                        {(results.revenue_metrics?.test_result?.significant ?? false) ? "Significant" : "Not significant"}
                       </TableCell>
                     </TableRow>
                     <TableRow>
                       <TableCell className="font-medium">Power</TableCell>
-                      <TableCell>{results.revenue_metrics?.test_result.power.toFixed(2)}</TableCell>
+                      <TableCell>{results.revenue_metrics?.test_result?.power?.toFixed(2) || 'N/A'}</TableCell>
                     </TableRow>
                   </TableBody>
                 </Table>
