@@ -11,7 +11,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
-import { ReachCategory } from "../../../services/RiceService";
+import { ReachCategory } from "@/app/services/RiceService";
 
 interface ReachCategoryModalProps {
   isOpen: boolean;

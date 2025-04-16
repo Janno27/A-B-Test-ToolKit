@@ -12,7 +12,7 @@ import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Slider } from "@/components/ui/slider";
-import { EffortSize } from "../../../services/RiceService";
+import { EffortSize } from "@/app/services/RiceService";
 
 interface EffortSizeModalProps {
   isOpen: boolean;

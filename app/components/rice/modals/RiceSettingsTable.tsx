@@ -11,16 +11,16 @@ import {
   TableCell 
 } from "@/components/ui/table";
 import { PencilIcon, PlusIcon, TrashIcon } from "lucide-react";
-import { ReachCategoryModal } from "../../results-analysis/ReachCategoryModal";
+import { ReachCategoryModal } from "./ReachCategoryModal";
 import { ImpactKpiModal } from "./ImpactKpiModal";
 import { ConfidenceSourceModal } from "./ConfidenceSourceModal";
-import { EffortSizeModal } from "../../results-analysis/EffortSizeModal";
+import { EffortSizeModal } from "./EffortSizeModal";
 import { 
   ReachCategory, 
   ImpactKPI, 
   ConfidenceSource, 
   EffortSize 
-} from "../../../services/RiceService";
+} from "@/app/services/RiceService";
 
 interface EditableCellProps {
   value: string | number;

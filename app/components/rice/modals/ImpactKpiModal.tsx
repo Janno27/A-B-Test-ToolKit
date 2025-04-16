@@ -14,7 +14,7 @@ import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { v4 as uuidv4 } from "uuid";
-import { ImpactKPI } from "@/services/RiceService";
+import { ImpactKPI } from "@/app/services/RiceService";
 
 interface ImpactKpiModalProps {
   isOpen: boolean;

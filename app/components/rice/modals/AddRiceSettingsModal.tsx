@@ -12,6 +12,7 @@ import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
+import riceService from "@/app/services/RiceService";
 import { createDefaultRiceSettings } from "../../../utils/defaultRiceSettings";
 
 interface AddRiceSettingsModalProps {
