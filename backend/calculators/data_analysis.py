@@ -751,7 +751,17 @@ def analyze_ab_test_data(
         else:
             overall_message += "No statistically significant differences were found."
         
-        # Return the complete analysis
+        # Generate visualization data using the preprocessor
+        from .visualization_preprocessor import prepare_visualization_data
+        
+        # Convert numpy arrays to python lists for serialization
+        control_list = control_data.tolist()
+        variation_list = variation_data.tolist()
+        
+        # Get visualization data
+        viz_data = prepare_visualization_data(control_list, variation_list, kpi_type)
+        
+        # Return the complete analysis with visualization data
         return {
             "basic_statistics": basic_stats,
             "basic_interpretation": basic_interpretation,
@@ -764,7 +774,12 @@ def analyze_ab_test_data(
                 "variation_summary": summary_stats["variation"],
                 "message": summary_message,
                 "has_outliers": has_outliers
-            }
+            },
+            # Add visualization data
+            "raw_data": viz_data.get("raw_data"),
+            "quartiles": viz_data.get("quartiles"),
+            "histogram_data": viz_data.get("histogram_data"),
+            "frequency_data": viz_data.get("frequency_data")
         }
     
     except Exception as e:

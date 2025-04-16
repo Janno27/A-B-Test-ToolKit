@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import { ArrowRight } from "lucide-react";
-import { motion } from "framer-motion";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -14,7 +13,6 @@ interface NewAnalysisFormProps {
 
 export default function NewAnalysisForm({ onAnalysisCreated }: NewAnalysisFormProps) {
   const [testName, setTestName] = useState("");
-  const [isHovered, setIsHovered] = useState(false);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -41,23 +39,16 @@ export default function NewAnalysisForm({ onAnalysisCreated }: NewAnalysisFormPr
           />
         </div>
 
-        <motion.button
+        <Button
           type="submit"
-          className="flex items-center bg-transparent hover:bg-transparent py-1 px-2 text-sm text-primary font-medium transition-all duration-300 gap-1"
-          onHoverStart={() => setIsHovered(true)}
-          onHoverEnd={() => setIsHovered(false)}
-          whileTap={{ scale: 0.98 }}
+          size="sm"
+          variant="outline"
+          className="flex items-center gap-1"
+          disabled={!testName.trim()}
         >
           <span>Create analysis</span>
-          <motion.div
-            animate={{
-              x: isHovered ? 5 : 0,
-            }}
-            transition={{ type: "spring", stiffness: 400, damping: 10 }}
-          >
             <ArrowRight className="h-4 w-4" />
-          </motion.div>
-        </motion.button>
+        </Button>
       </div>
     </form>
   );

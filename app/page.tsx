@@ -32,6 +32,7 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/comp
 import { InfoCircledIcon } from "@radix-ui/react-icons";
 import { Switch } from "@/components/ui/switch";
 import { ResultsAnalysis } from "./components/results-analysis";
+import { PrioritizationTool } from "./components/results-analysis";
 
 export default function Home() {
   const [visits, setVisits] = useState("");
@@ -167,11 +168,15 @@ export default function Home() {
 
         <Tabs defaultValue="duration" className="w-full">
           <div className="flex justify-center mb-4">
-            <TabsList className="grid w-[400px] grid-cols-2">
+            <TabsList className="grid w-[600px] grid-cols-3">
+              <TabsTrigger value="prioritization">Prioritization</TabsTrigger>
               <TabsTrigger value="duration">Duration Calculator</TabsTrigger>
               <TabsTrigger value="analysis">Results Analysis</TabsTrigger>
             </TabsList>
           </div>
+          <TabsContent value="prioritization">
+            <PrioritizationTool />
+          </TabsContent>
           <TabsContent value="duration">
             <div 
               className="relative rounded-xl p-[1.5px] bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 shadow-md"
@@ -997,7 +1002,7 @@ export default function Home() {
       </div>
       <footer className="mt-12 text-center text-sm text-muted-foreground space-y-1">
         <p>A/B Test ToolKit © 2025</p>
-        <p>By Emma - The Sleep Company - Created by Jean R.</p>
+        <p>For Emma - The Sleep Company - Created by Jean R.</p>
       </footer>
     </div>
   );

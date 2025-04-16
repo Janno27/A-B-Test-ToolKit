@@ -96,4 +96,28 @@ class DetailedAnalysisResult(BaseModel):
         description="Total revenue analysis results"
     )
     message: str = Field(..., description="Overall summary message")
-    outliers_removed: Optional[OutliersRemoved] = Field(None, description="Information about outliers removed during analysis") 
+    outliers_removed: Optional[OutliersRemoved] = Field(None, description="Information about outliers removed during analysis")
+    
+    # Add data for charts
+    raw_data: Optional[Dict[str, List[float]]] = Field(
+        None, 
+        description="Raw data for each variation, used for visualizations"
+    )
+    
+    # Advanced statistics for box plots
+    quartiles: Optional[Dict[str, Dict[str, float]]] = Field(
+        None,
+        description="Quartile values (q1, q3) for box plots visualizations"
+    )
+    
+    # Histogram data
+    histogram_data: Optional[List[Dict[str, Any]]] = Field(
+        None,
+        description="Pre-calculated histogram bins for visualizations"
+    )
+    
+    # Frequency data for scatter plots
+    frequency_data: Optional[Dict[str, List[Dict[str, Any]]]] = Field(
+        None,
+        description="Frequency distribution data for scatter plots"
+    ) 

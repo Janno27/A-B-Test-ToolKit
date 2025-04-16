@@ -90,28 +90,15 @@ export default function RevenueDashboard({
   
   return (
     <div>
-      <Tabs defaultValue="summary" className="w-full">
-        <TabsList className="w-full flex justify-center mb-4">
-          <TabsTrigger value="summary">Summary</TabsTrigger>
-          <TabsTrigger value="conversion">Conversion Rate</TabsTrigger>
-          <TabsTrigger value="aov">AOV</TabsTrigger>
-          <TabsTrigger value="revenue-per-user">Revenue per User</TabsTrigger>
-          <TabsTrigger value="revenue">Revenue</TabsTrigger>
-        </TabsList>
-        
-        {/* Summary Tab */}
-        <TabsContent value="summary">
-          <KpiDetailTab
-            title="Summary"
-            metrics={analysisResults?.revenue_metrics || {control_value: 0, variation_value: 0, uplift: 0, test_result: {confidence: 0, significant: false, pValue: 0.5}}}
-            statisticsControl={analysisResults?.basic_statistics?.control || {count: 0, mean: 0, std: 0, min_value: 0, max_value: 0}}
-            statisticsVariation={analysisResults?.basic_statistics?.variation || {count: 0, mean: 0, std: 0, min_value: 0, max_value: 0}}
-            usersControl={usersControl}
-            usersVariation={usersVariation}
-            interpretations={interpretationsSummary}
-            kpiType="revenue"
-          />
-        </TabsContent>
+      <Tabs defaultValue="conversion" className="w-full">
+        <div className="flex justify-center mb-4">
+          <TabsList className="grid w-[500px] grid-cols-4 text-xs">
+            <TabsTrigger value="conversion" className="px-2">Conversion</TabsTrigger>
+            <TabsTrigger value="aov" className="px-2">AOV</TabsTrigger>
+            <TabsTrigger value="revenue-per-user" className="px-2">Rev. per User</TabsTrigger>
+            <TabsTrigger value="revenue" className="px-2">Revenue</TabsTrigger>
+          </TabsList>
+        </div>
         
         {/* Conversion Rate Tab */}
         <TabsContent value="conversion">
@@ -139,6 +126,10 @@ export default function RevenueDashboard({
             usersVariation={usersVariation}
             interpretations={interpretationsAov}
             kpiType="aov"
+            rawData={analysisResults?.raw_data}
+            quartiles={analysisResults?.quartiles}
+            histogramData={analysisResults?.histogram_data}
+            frequencyData={analysisResults?.frequency_data}
           />
         </TabsContent>
         
@@ -167,6 +158,10 @@ export default function RevenueDashboard({
             usersVariation={usersVariation}
             interpretations={interpretationsRevenue}
             kpiType="revenue"
+            rawData={analysisResults?.raw_data}
+            quartiles={analysisResults?.quartiles}
+            histogramData={analysisResults?.histogram_data}
+            frequencyData={analysisResults?.frequency_data}
           />
         </TabsContent>
       </Tabs>

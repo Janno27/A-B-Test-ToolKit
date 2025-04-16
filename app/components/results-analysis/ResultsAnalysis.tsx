@@ -324,6 +324,19 @@ export default function ResultsAnalysis() {
   };
 
   const handleAnalysisComplete = (results: any) => {
+    console.log("Analysis complete - Raw results:", results);
+    
+    // Log visualization data
+    console.log("Visualization data from backend:", {
+      raw_data: results.raw_data,
+      quartiles: results.quartiles,
+      histogram_data: results.histogram_data,
+      frequency_data: results.frequency_data
+    });
+    
+    setIsAnalyzing(false);
+    setAnalysisResults(results);
+    
     // Log the incoming results for debugging
     console.log("Analysis complete results:", JSON.stringify(results));
     
@@ -663,7 +676,7 @@ export default function ResultsAnalysis() {
                           <TabsList className="grid w-[400px] grid-cols-2">
                             <TabsTrigger value="summary">Summary</TabsTrigger>
                             <TabsTrigger value="revenue">Revenue</TabsTrigger>
-                          </TabsList>
+                        </TabsList>
                         </div>
                         
                         <TabsContent value="summary">
