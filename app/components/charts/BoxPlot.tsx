@@ -10,7 +10,8 @@ import {
   ResponsiveContainer,
   ReferenceLine,
   Rectangle,
-  Legend
+  Legend,
+  RectangleProps
 } from "recharts";
 
 interface BoxPlotData {
@@ -29,7 +30,13 @@ interface BoxPlotProps {
   variationColor?: string;
 }
 
-const CustomTooltip = ({ active, payload }: any) => {
+// Définition des props pour CustomTooltip
+interface CustomTooltipProps {
+  active?: boolean;
+  payload?: Array<{ payload: BoxPlotData }>;
+}
+
+const CustomTooltip = ({ active, payload }: CustomTooltipProps) => {
   if (active && payload && payload.length) {
     const data = payload[0].payload;
     
@@ -48,33 +55,37 @@ const CustomTooltip = ({ active, payload }: any) => {
   return null;
 };
 
-// Custom renderer for the box and whisker
-const CustomBox = (props: any) => {
+// Définition des props pour CustomBox
+interface CustomBoxProps extends RectangleProps {
+  datum: BoxPlotData;
+  color: string;
+}
+
+const CustomBox = (props: CustomBoxProps) => {
   const { x, y, width, height, datum, color } = props;
   
-  // Calculate positions for the box plot elements
-  const boxWidth = width * 0.6;
+  // Calcul des positions (identique)
+  const boxWidth = width! * 0.6;
   const halfBoxWidth = boxWidth / 2;
-  const centerX = x + width / 2;
+  const centerX = x! + width! / 2;
   
-  // Calculate y positions for the elements based on datum
-  const minY = y + height * (1 - datum.min / 100); // Convert to y-coordinate space
-  const q1Y = y + height * (1 - datum.q1 / 100);
-  const medianY = y + height * (1 - datum.median / 100);
-  const q3Y = y + height * (1 - datum.q3 / 100);
-  const maxY = y + height * (1 - datum.max / 100);
+  const minY = y! + height! * (1 - datum.min / 100);
+  const q1Y = y! + height! * (1 - datum.q1 / 100);
+  const medianY = y! + height! * (1 - datum.median / 100);
+  const q3Y = y! + height! * (1 - datum.q3 / 100);
+  const maxY = y! + height! * (1 - datum.max / 100);
   
   return (
     <g>
-      {/* Whiskers (vertical lines) */}
+      {/* Whiskers */}
       <line x1={centerX} y1={minY} x2={centerX} y2={q1Y} stroke={color} strokeWidth={1.5} />
       <line x1={centerX} y1={q3Y} x2={centerX} y2={maxY} stroke={color} strokeWidth={1.5} />
       
-      {/* Horizontal lines at min and max */}
+      {/* Lignes horizontales */}
       <line x1={centerX - halfBoxWidth} y1={minY} x2={centerX + halfBoxWidth} y2={minY} stroke={color} strokeWidth={1.5} />
       <line x1={centerX - halfBoxWidth} y1={maxY} x2={centerX + halfBoxWidth} y2={maxY} stroke={color} strokeWidth={1.5} />
       
-      {/* Box (IQR) */}
+      {/* Boîte IQR */}
       <rect
         x={centerX - halfBoxWidth}
         y={q3Y}
@@ -86,7 +97,7 @@ const CustomBox = (props: any) => {
         strokeWidth={1.5}
       />
       
-      {/* Median line */}
+      {/* Médiane */}
       <line
         x1={centerX - halfBoxWidth}
         y1={medianY}
@@ -126,14 +137,13 @@ export const BoxPlot: React.FC<BoxPlotProps> = ({
         <Tooltip content={<CustomTooltip />} />
         <Legend />
         
-        {/* Custom box plot elements */}
         {data.map((entry, index) => (
           <Bar
             key={`boxplot-${index}`}
             dataKey="median"
             fill="transparent"
             stroke="transparent"
-            shape={(props) => (
+            shape={(props: RectangleProps) => (
               <CustomBox
                 {...props}
                 datum={entry}
@@ -145,4 +155,4 @@ export const BoxPlot: React.FC<BoxPlotProps> = ({
       </ComposedChart>
     </ResponsiveContainer>
   );
-}; 
+};
