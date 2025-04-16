@@ -1,18 +1,15 @@
 import React from "react";
 import {
   ComposedChart,
-  Line,
   Bar,
   XAxis,
   YAxis,
   CartesianGrid,
   Tooltip,
   ResponsiveContainer,
-  ReferenceLine,
-  Rectangle,
   Legend,
-  RectangleProps
 } from "recharts";
+import type { BarProps } from "recharts/types/cartesian/Bar";
 
 interface BoxPlotData {
   name: string;
@@ -30,7 +27,6 @@ interface BoxPlotProps {
   variationColor?: string;
 }
 
-// Définition des props pour CustomTooltip
 interface CustomTooltipProps {
   active?: boolean;
   payload?: Array<{ payload: BoxPlotData }>;
@@ -55,16 +51,18 @@ const CustomTooltip = ({ active, payload }: CustomTooltipProps) => {
   return null;
 };
 
-// Définition des props pour CustomBox
-interface CustomBoxProps extends RectangleProps {
+interface CustomBoxProps extends BarProps {
   datum: BoxPlotData;
   color: string;
+  x?: number;
+  y?: number;
+  width?: number;
+  height?: number;
 }
 
 const CustomBox = (props: CustomBoxProps) => {
   const { x, y, width, height, datum, color } = props;
   
-  // Calcul des positions (identique)
   const boxWidth = width! * 0.6;
   const halfBoxWidth = boxWidth / 2;
   const centerX = x! + width! / 2;
@@ -77,15 +75,12 @@ const CustomBox = (props: CustomBoxProps) => {
   
   return (
     <g>
-      {/* Whiskers */}
       <line x1={centerX} y1={minY} x2={centerX} y2={q1Y} stroke={color} strokeWidth={1.5} />
       <line x1={centerX} y1={q3Y} x2={centerX} y2={maxY} stroke={color} strokeWidth={1.5} />
       
-      {/* Lignes horizontales */}
       <line x1={centerX - halfBoxWidth} y1={minY} x2={centerX + halfBoxWidth} y2={minY} stroke={color} strokeWidth={1.5} />
       <line x1={centerX - halfBoxWidth} y1={maxY} x2={centerX + halfBoxWidth} y2={maxY} stroke={color} strokeWidth={1.5} />
       
-      {/* Boîte IQR */}
       <rect
         x={centerX - halfBoxWidth}
         y={q3Y}
@@ -97,7 +92,6 @@ const CustomBox = (props: CustomBoxProps) => {
         strokeWidth={1.5}
       />
       
-      {/* Médiane */}
       <line
         x1={centerX - halfBoxWidth}
         y1={medianY}
@@ -143,7 +137,7 @@ export const BoxPlot: React.FC<BoxPlotProps> = ({
             dataKey="median"
             fill="transparent"
             stroke="transparent"
-            shape={(props: RectangleProps) => (
+            shape={(props: BarProps) => (
               <CustomBox
                 {...props}
                 datum={entry}
